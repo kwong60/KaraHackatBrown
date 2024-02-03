@@ -7,7 +7,7 @@ import food from "./images/food.png";
 import shopping from "./images/shopping.png";
 import wild from "./images/wildcard.png";
 
-function App() {
+export function Interests() {
   <link rel="stylesheet" href="mystyle.css"></link>;
 
   return (
@@ -55,4 +55,4 @@ function App() {
   );
 }
 
-export default App;
+// export default App;
