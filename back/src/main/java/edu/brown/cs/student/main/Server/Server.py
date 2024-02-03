@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import requests
 
@@ -16,7 +16,11 @@ CORS(app)  # Enable Cross-Origin Resource Sharing (CORS) for all routes
 
 @app.route('/')
 def home():
-    return 'Home Page'
+    return render_template('index.html')
+
+@app.route('/static/<path:path>')
+def send_static(path):
+    return send_from_directory('static', path)
 
 @app.route('/checkweather', methods=['GET'])
 def check_weather():
