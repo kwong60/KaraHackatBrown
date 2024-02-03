@@ -5,6 +5,9 @@ import requests
 from flask import Flask, render_template, redirect, url_for, session, flash
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, validators
+from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user, current_user
+
+import sqlite3
 
 app = Flask(__name__)
 CORS(app)  # Enable Cross-Origin Resource Sharing (CORS) for all routes
@@ -13,6 +16,22 @@ CORS(app)  # Enable Cross-Origin Resource Sharing (CORS) for all routes
 # parsed_loaded_csv = []
 # parsed_loaded_json = {}
 # state_code = {}
+
+def insertUser(username, password):
+    # maybe try & err
+    con = sqlite3.connect("database.db")
+    cur = con.cursor()
+    cur.execute("INSERT INTO users (username,pwd) VALUES (?,?)", (username, password))
+    con.commit()
+    con.close()
+
+def retrieveUsers():
+	con = sqlite3.connect("database.db")
+	cur = con.cursor()
+	cur.execute("SELECT username, pwd FROM users")
+	users = cur.fetchall()
+	con.close()
+	return users
 
 @app.route('/')
 def home():
@@ -42,12 +61,10 @@ def connect(request_url):
     return url_connection
 
 
-
-
 app.secret_key = 'supersecretkey'  # Change this to a secure secret key
 
 # # Replace this with your actual user database or authentication logic
-users = {'user1': 'password1', 'user2': 'password2'}
+# users = {'user1': 'password1', 'user2': 'password2'}
 
 class LoginForm(FlaskForm):
     username = StringField('Username', [validators.InputRequired()])
@@ -69,11 +86,19 @@ def login():
         username = form.username.data
         password = form.password.data
 
-        # Replace this with your actual user authentication logic
-        if username in users and users[username] == password:
-            session['logged_in'] = True
-            flash('Login successful!', 'success')
-            return redirect(url_for('home'))
+        users = retrieveUsers()
+        # user authentication logic
+        cur_user = None
+        for user in users: 
+            if user[0] == username: 
+                cur_user = user
+                break
+
+        if cur_user:
+            if cur_user[1] == password:
+                session['logged_in'] = True
+                flash('Login successful!', 'success')
+                return redirect(url_for('home'))
         else:
             flash('Invalid credentials. Please try again.', 'error')
 
@@ -92,6 +117,7 @@ def dashboard():
         flash('You need to login first.', 'warning')
         return redirect(url_for('login'))
 
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
@@ -100,9 +126,17 @@ def register():
         username = form.username.data
         password = form.password.data
 
-        # Replace this with your actual user registration logic
-        if username not in users:
-            users[username] = password
+        # user registration logic
+        users = retrieveUsers()
+        existing = False
+        for user in users: 
+            if user[0] == username: 
+                existing = True
+                break
+
+        if not existing:
+            insertUser(username, password)
+            # users[username] = password
             flash('Registration successful! You can now login.', 'success')
             return redirect(url_for('login'))
         else:
