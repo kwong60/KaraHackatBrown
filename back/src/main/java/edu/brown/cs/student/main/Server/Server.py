@@ -5,6 +5,9 @@ import requests
 from flask import Flask, render_template, redirect, url_for, session, flash
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, validators
+from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user, current_user
+
+import sqlite3
 
 app = Flask(__name__)
 CORS(app)  # Enable Cross-Origin Resource Sharing (CORS) for all routes
@@ -13,6 +16,21 @@ CORS(app)  # Enable Cross-Origin Resource Sharing (CORS) for all routes
 # parsed_loaded_csv = []
 # parsed_loaded_json = {}
 # state_code = {}
+
+def insertUser(username, password):
+    con = sqlite3.connect("database.db")
+    cur = con.cursor()
+    cur.execute("INSERT INTO users (username,password) VALUES (?,?)", (username, password))
+    con.commit()
+    con.close()
+
+def retrieveUsers():
+	con = sqlite3.connect("database.db")
+	cur = con.cursor()
+	cur.execute("SELECT username, password FROM users")
+	users = cur.fetchall()
+	con.close()
+	return users
 
 @app.route('/')
 def home():
@@ -36,8 +54,6 @@ def check_weather():
 def connect(request_url):
     url_connection = requests.get(request_url)
     return url_connection
-
-
 
 
 app.secret_key = 'supersecretkey'  # Change this to a secure secret key
@@ -65,6 +81,10 @@ def login():
         username = form.username.data
         password = form.password.data
 
+        conn = sqlite3.connect('/var/www/flask/login.db')
+        curs = conn.cursor()
+        curs.execute("SELECT * FROM users where email = (?)", [form.email.data])
+
         # Replace this with your actual user authentication logic
         if username in users and users[username] == password:
             session['logged_in'] = True
@@ -87,6 +107,7 @@ def dashboard():
     else:
         flash('You need to login first.', 'warning')
         return redirect(url_for('login'))
+
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
