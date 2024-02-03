@@ -1,0 +1,134 @@
+body {
+  background-image: url(\images/nightsky.jpg);
+  background-size:cover;
+}
+
+h1 {
+  color: rgb(255, 255, 255);
+  text-align: center;
+  font-family:'Courier New', Courier, monospace;
+}
+
+h2 {
+  color: rgb(255, 255, 255);
+  text-align: center;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+}
+
+.nav-icon {
+  height: 40px;
+  width: 40px;
+  justify-content: center;
+  font-size: 20px;
+  margin: 0px 15px;
+}
+
+.active:hover {
+  box-shadow: 0 4px 10px #ffffff;
+  border-radius: 20px;
+  opacity:0.8;
+}
+
+.entertain:hover {
+  box-shadow: 0 4px 10px #ffffff;
+  border-radius: 20px;
+  opacity:0.8;
+
+}
+
+.food:hover {
+  box-shadow: 0 4px 10px #ffffff;
+  border-radius: 20px;
+  opacity:0.8;
+}
+
+.shop:hover {
+  box-shadow: 0 4px 10px #ffffff;
+  border-radius: 20px;
+  opacity:0.8;
+}
+
+.wildcard:hover {
+  box-shadow: 0 4px 10px #ffffff;
+  border-radius: 20px;
+  opacity:0.8;
+}
+
+
+.button {
+  margin: auto;
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.username {
+  margin: auto;
+  position: absolute;
+  top: 38%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.password {
+  margin: auto;
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.password_con {
+  margin: auto;
+  position: absolute;
+  top: 52%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.submit_login {
+  margin: auto;
+  position: absolute;
+  top: 51%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.submit_int {
+  margin: auto;
+  position: absolute;
+  top: 110%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.submit_reg {
+  margin: auto;
+  position: absolute;
+  top: 59%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.submit_friends {
+  margin: auto;
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.bg_img {
+  size: 300%;
+  top: 100%;
+  left: 50%;
+}
