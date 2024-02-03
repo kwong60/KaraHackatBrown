@@ -7,8 +7,11 @@ import food from "./images/food.png";
 import shopping from "./images/shopping.png";
 import wild from "./images/wildcard.png";
 import earth from "./images/earth.png";
+import { AddFriends } from "./AddFriends"
 
 function App() {
+
+  
   // const [friends, setFriends] = useState([]);
   // const friendNameRef = useRef();
 
@@ -27,6 +30,8 @@ function App() {
   //
 
   return (
+    <AddFriends />
+
     // <div className="App">
     //   <h1><img src={title} /></h1>
     //     <h2>Add Friends!</h2>
@@ -74,47 +79,47 @@ function App() {
     //     </div>
 
     // Interests
-    <div className="App">
-      <h1>
-        <img src={title} />
-      </h1>
-      <h2>What are you interested in today?</h2>
-      <div class="button">
-        <div class="active">
-          <button>
-            <img src={active} />
-          </button>{" "}
-          <span></span>
-        </div>
-        <div class="entertain">
-          <button>
-            <img src={enter} />
-          </button>{" "}
-          <span></span>
-        </div>
-        <div class="food">
-          <button>
-            <img src={food} />
-          </button>{" "}
-          <span></span>
-        </div>
-        <div class="shop">
-          <button>
-            <img src={shopping} />
-          </button>{" "}
-          <span></span>
-        </div>
-        <div class="wildcard">
-          <button>
-            <img src={wild} />
-          </button>{" "}
-          <span></span>
-        </div>
-      </div>
-      <div class="submit_int">
-        <button type="submit">Submit</button>
-      </div>{" "}
-    </div>
+    // <div className="App">
+    //   <h1>
+    //     <img src={title} />
+    //   </h1>
+    //   <h2>What are you interested in today?</h2>
+    //   <div class="button">
+    //     <div class="active">
+    //       <button>
+    //         <img src={active} />
+    //       </button>{" "}
+    //       <span></span>
+    //     </div>
+    //     <div class="entertain">
+    //       <button>
+    //         <img src={enter} />
+    //       </button>{" "}
+    //       <span></span>
+    //     </div>
+    //     <div class="food">
+    //       <button>
+    //         <img src={food} />
+    //       </button>{" "}
+    //       <span></span>
+    //     </div>
+    //     <div class="shop">
+    //       <button>
+    //         <img src={shopping} />
+    //       </button>{" "}
+    //       <span></span>
+    //     </div>
+    //     <div class="wildcard">
+    //       <button>
+    //         <img src={wild} />
+    //       </button>{" "}
+    //       <span></span>
+    //     </div>
+    //   </div>
+    //   <div class="submit_int">
+    //     <button type="submit">Submit</button>
+    //   </div>{" "}
+    // </div>
   );
 }
 
