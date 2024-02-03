@@ -37,94 +37,74 @@ def connect(request_url):
     url_connection = requests.get(request_url)
     return url_connection
 
-# # @app.route('/viewcsv', methods=['GET'])
-# # def view_csv():
-# #     # Implement the logic for viewing the entire CSV file's contents as a JSON 2-dimensional array
-# #     return jsonify(parsed_loaded_json)
-
-# # @app.route('/searchcsv', methods=['GET'])
-# # def search_csv():
-# #     # Implement the logic for searching rows matching the given search criteria
-# #     # You can use request.args to get query parameters
-# #     return jsonify({"message": "Search results"})
-
-# # @app.route('/broadband', methods=['GET'])
-# # def broadband():
-# #     # Implement the logic for sending back broadband data from the ACS API
-# #     return jsonify({"message": "Broadband data"})
-
-# # Additional endpoints can be added as needed
 
 
 
-# app.secret_key = 'supersecretkey'  # Change this to a secure secret key
+app.secret_key = 'supersecretkey'  # Change this to a secure secret key
 
 # # Replace this with your actual user database or authentication logic
-# users = {'user1': 'password1', 'user2': 'password2'}
+users = {'user1': 'password1', 'user2': 'password2'}
 
-# class LoginForm(FlaskForm):
-#     username = StringField('Username', [validators.InputRequired()])
-#     password = PasswordField('Password', [validators.InputRequired()])
-#     submit = SubmitField('Login')
+class LoginForm(FlaskForm):
+    username = StringField('Username', [validators.InputRequired()])
+    password = PasswordField('Password', [validators.InputRequired()])
+    submit = SubmitField('Login')
 
-# class RegistrationForm(FlaskForm):
-#     username = StringField('Username', [validators.InputRequired()])
-#     password = PasswordField('Password', [validators.InputRequired()])
-#     confirm_password = PasswordField('Confirm Password', [validators.InputRequired(), validators.EqualTo('password', message='Passwords must match')])
-#     submit = SubmitField('Register')
+class RegistrationForm(FlaskForm):
+    username = StringField('Username', [validators.InputRequired()])
+    password = PasswordField('Password', [validators.InputRequired()])
+    confirm_password = PasswordField('Confirm Password', [validators.InputRequired(), validators.EqualTo('password', message='Passwords must match')])
+    submit = SubmitField('Register')
 
 
-# @app.route('/login', methods=['GET', 'POST'])
-# def login():
-#     form = LoginForm()
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
 
-#     if form.validate_on_submit():
-#         username = form.username.data
-#         password = form.password.data
+    if form.validate_on_submit():
+        username = form.username.data
+        password = form.password.data
 
-#         # Replace this with your actual user authentication logic
-#         if username in users and users[username] == password:
-#             session['logged_in'] = True
-#             flash('Login successful!', 'success')
-#             return redirect(url_for('home'))
-#         else:
-#             flash('Invalid credentials. Please try again.', 'error')
+        # Replace this with your actual user authentication logic
+        if username in users and users[username] == password:
+            session['logged_in'] = True
+            flash('Login successful!', 'success')
+            return redirect(url_for('home'))
+        else:
+            flash('Invalid credentials. Please try again.', 'error')
 
-#     return render_template('login.html', form=form)
+    return render_template('login.html', form=form)
 
-# @app.route('/logout')
-# def logout():
-#     session.pop('logged_in', None)
-#     return redirect(url_for('home'))
+@app.route('/logout')
+def logout():
+    session.pop('logged_in', None)
+    return redirect(url_for('home'))
 
-# @app.route('/dashboard')
-# def dashboard():
-#     if 'logged_in' in session and session['logged_in']:
-#         return 'Welcome to the Dashboard!'
-#     else:
-#         flash('You need to login first.', 'warning')
-#         return redirect(url_for('login'))
+@app.route('/dashboard')
+def dashboard():
+    if 'logged_in' in session and session['logged_in']:
+        return 'Welcome to the Dashboard!'
+    else:
+        flash('You need to login first.', 'warning')
+        return redirect(url_for('login'))
 
-# @app.route('/register', methods=['GET', 'POST'])
-# def register():
-#     form = RegistrationForm()
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    form = RegistrationForm()
 
-#     if form.validate_on_submit():
-#         username = form.username.data
-#         password = form.password.data
+    if form.validate_on_submit():
+        username = form.username.data
+        password = form.password.data
 
-#         # Replace this with your actual user registration logic
-#         if username not in users:
-#             users[username] = password
-#             flash('Registration successful! You can now login.', 'success')
-#             return redirect(url_for('login'))
-#         else:
-#             flash('Username already exists. Please choose a different one.', 'error')
+        # Replace this with your actual user registration logic
+        if username not in users:
+            users[username] = password
+            flash('Registration successful! You can now login.', 'success')
+            return redirect(url_for('login'))
+        else:
+            flash('Username already exists. Please choose a different one.', 'error')
 
-#     return render_template('register.html', form=form)
-
-# if __name__ == '__main__':
-#     app.run(port=3232, debug=True)
+    return render_template('register.html', form=form)
 
 if __name__ == '__main__':
     port = 3232
