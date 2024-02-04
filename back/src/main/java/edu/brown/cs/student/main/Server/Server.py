@@ -16,27 +16,27 @@ csrf=CSRFProtect(app)
 app.config['WTF_CSRF_ENABLED'] = False
 
 
-
-
-
 # # Initialize static variables
 # parsed_loaded_csv = []
 # parsed_loaded_json = {}
 # state_code = {}
 
-def getSQLCursor(database):
-    con = sqlite3.connect("database.db")
-    cur = con.cursor()
-    return cur
 
 def insertUser(username, password):
     # maybe try & err
-    cur = getSQLCursor
+    # need hash to passward for security
+    con = sqlite3.connect("database.db")
+	cur = con.cursor()
     cur.execute("INSERT INTO users (username,pwd) VALUES (?,?)", (username, password))
     con.commit()
     con.close()
 
-def insertInterests():
+def insertInterests(user_id, interests):
+    con = sqlite3.connect("database.db")
+	cur = con.cursor()
+    cur.execute("UPDATE users SET interests=? WHERE user_id=?"), (interests, user_id)
+    con.commit()
+    con.close()
 
 
 def retrieveUsers():
@@ -78,9 +78,6 @@ def connect(request_url):
 
 
 app.secret_key = 'supersecretkey'  # Change this to a secure secret key
-
-# # Replace this with your actual user database or authentication logic
-# users = {'user1': 'password1', 'user2': 'password2'}
 
 class LoginForm(FlaskForm):
     username = StringField('Username', [validators.InputRequired()])
@@ -157,12 +154,8 @@ def register():
 
         if not existing:
             insertUser(username, password)
-            # users[username] = password
-            # flash('Registration successful! You can now login.', 'success')
             return jsonify({"status": "success"})
-            return redirect(url_for('login'))
         else:
-            # flash('Username already exists. Please choose a different one.', 'error')
             return jsonify({"status":"error_username_exists"})
     else:
         print("form validation failed")
@@ -180,11 +173,7 @@ def register():
 
 
 class InterestForm(FlaskForm):
-    active = BooleanField('active', [validators.DataRequired()])
-    entertain = BooleanField('entertain', [validators.DataRequired()])
-    food = BooleanField('food', [validators.DataRequired()])
-    shop = BooleanField('shop', [validators.DataRequired()])
-    wildcard = BooleanField('wildcard', [validators.DataRequired()])
+    interests = StringField('interest', [validators.DataRequired()])
     submit = SubmitField('Register')
 
 
@@ -194,36 +183,28 @@ def interest():
 
     if form.validate_on_submit():
         print("form validaton passed")
-        active = form.active.data
-        entertain = form.entertain.data
-        food = form.food.data
-        shop = form.shop.data
-        wildcard = form.wildcard.data
+        interests = form.interests.data
 
         # store interests
         users = retrieveUsers()
         if 'user_id' in sessions and session['user_id']:
             cur_user_id = session['user_id']
-            cur_user = None
+            existing = False
             for user in users: 
                 if user[0] == cur_user_id: 
-                    cur_user = user
+                    existing = True
                     break
             
             if cur_user:
-
-
-        if not existing:
-            insertUser(username, password)
-            # users[username] = password
-            # flash('Registration successful! You can now login.', 'success')
-            return jsonify({"status": "success"})
-            return redirect(url_for('login'))
+                insertInterests(cur_user_id, interests)
+                return jsonify({"status": "success"})
+            else:
+                return jsonify({"status":"error_invalid_user_id"})
         else:
-            # flash('Username already exists. Please choose a different one.', 'error')
-            return jsonify({"status":"error_username_exists"})
+            return jsonify({"status":"error_no_user"})
     else:
         print("form validation failed")
+
 
 
 @app.route('/add_friends', methods=['GET', 'POST'])
