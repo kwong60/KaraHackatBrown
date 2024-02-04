@@ -23,11 +23,23 @@ h2 {
   margin: 0px 15px;
 }
 
+.user_message {
+  color: rgb(255, 255, 255);
+  text-align: center;
+  font-family:'Courier New', Courier, monospace;
+  font-size:medium;
+}
+
 .active:hover {
   box-shadow: 0 4px 10px #ffffff;
   border-radius: 20px;
   opacity:0.8;
 }
+
+.button div.selected button {
+  opacity: 0.5; /* Adjust the opacity value as needed */
+}
+
 
 .entertain:hover {
   box-shadow: 0 4px 10px #ffffff;
