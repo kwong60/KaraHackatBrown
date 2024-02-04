@@ -177,9 +177,9 @@ class InterestForm(FlaskForm):
     submit = SubmitField('Register')
 
 
-@app.route('/interest', methods=['GET', 'POST'])
-def interest():
-    form = InterestForm()
+# @app.route('/interest', methods=['GET', 'POST'])
+# def interest():
+#     form = InterestForm()
 
     if form.validate_on_submit():
         print("form validaton passed")
