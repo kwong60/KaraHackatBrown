@@ -6,33 +6,57 @@ import enter from "./images/entertainment.png";
 import food from "./images/food.png";
 import shopping from "./images/shopping.png";
 import wild from "./images/wildcard.png";
-import {useNavigate} from "react-router-dom"
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export function Interests() {
-    <link rel="stylesheet" href="mystyle.css"></link>;
+  <link rel="stylesheet" href="mystyle.css"></link>;
 
   const [interestList, setInterestList] = useState("");
   const navigate = useNavigate();
 
-const handleButtonClick = (interest) => {
+  const handleButtonClick = (interest) => {
     if (!interestList.includes(interest)) {
-        setInterestList((prevList) => [...prevList, interest]);
+      setInterestList((prevList) => [...prevList, interest]);
+    } else {
+      setInterestList((prevList) =>
+        prevList.filter((item) => item !== interest)
+      );
     }
-    else {
-        setInterestList((prevList) => prevList.filter((item) => item !== interest));
+  };
+
+  const handleSubmit = async () => {
+    // Now you can use the interestList for further processing or redirection
+    console.log(interestList)
+    const interestsString = interestList.join(",");
+    console.log(interestsString)
+    try {
+      const response = await axios.post(
+        "http://localhost:3232/interests",
+        {
+          interests: interestsString,
+        },
+        {
+          withCredentials: true, // Include this line
+        }
+      );
+
+      // Assuming your Flask server responds with a success message
+      if (response.data.status == "success") {
+        navigate("/addfriends");
+      } else {
+        document.getElementById("message_to_user").innerHTML =
+          "Something went wrong! Try again!";
+        document.getElementById("message_to_user").style.display = "block";
+      }
+    } catch (error) {
+      document.getElementById("message_to_user").innerHTML =
+        "Unexpected error, try another username!";
+      document.getElementById("message_to_user").style.display = "block";
     }
-    
-}
 
-const handleSubmit = () => {
-   // Now you can use the interestList for further processing or redirection
-   console.log("Selected Interests:", interestList);
-   // ... other logic or redirection
-   navigate("/addfriends");
-
- };
-
-
+    navigate("/addfriends");
+  };
 
   return (
     <div className="App">
@@ -77,6 +101,13 @@ const handleSubmit = () => {
           Submit
         </button>
       </div>{" "}
+      <div>
+        <p
+          className="user_message"
+          id="message_to_user"
+          style={{ display: "none" }}
+        ></p>
+      </div>
     </div>
   );
 }
