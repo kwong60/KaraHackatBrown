@@ -7,7 +7,7 @@ from flask_wtf import FlaskForm, CSRFProtect
 from wtforms import StringField, PasswordField, SubmitField, validators
 from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user, current_user
 
-import sqlite3
+from sql_operations import insertUser, insertInterests, retrieveGroupId, getUserByUsername, getUsernameById, addFriends, createNewGroup
 
 app = Flask(__name__)
 # CORS(app)  # Enable Cross-Origin Resource Sharing (CORS) for all routes
@@ -20,33 +20,6 @@ app.config['WTF_CSRF_ENABLED'] = False
 # parsed_loaded_csv = []
 # parsed_loaded_json = {}
 # state_code = {}
-
-
-def insertUser(username, password):
-    # maybe try & err
-    # need hash to passward for security
-    con = sqlite3.connect("database.db")
-    cur = con.cursor()
-    cur.execute("INSERT INTO users (username,pwd) VALUES (?,?)", (username, password))
-    con.commit()
-    con.close()
-
-def insertInterests(user_id, interests):
-    con = sqlite3.connect("database.db")
-    cur = con.cursor()
-    cur.execute("UPDATE users SET interests=? WHERE user_id=?"), (interests, user_id)
-    con.commit()
-    con.close()
-
-
-def retrieveUsers():
-	con = sqlite3.connect("database.db")
-	cur = con.cursor()
-	cur.execute("SELECT user_id, username, pwd FROM users")
-	users = cur.fetchall()
-	con.close()
-	return users
-
 
 @app.route('/')
 def home():
@@ -99,16 +72,12 @@ def login():
         username = form.username.data
         password = form.password.data
 
-        users = retrieveUsers()
         # user authentication logic
-        cur_user = None
-        for user in users: 
-            if user[1] == username: 
-                cur_user = user
-                break
+        cur_user = getUserByUsername(username)
 
         if cur_user:
-            if cur_user[2] == password:
+            cur_user = cur_user[0]
+            if cur_user[1] == password:
                 session['logged_in'] = True
                 session['user_id'] = cur_user[0]
                 return jsonify({"status": "success"})
@@ -143,16 +112,10 @@ def register():
         username = form.username.data
         password = form.password.data
 
-
         # user registration logic
-        users = retrieveUsers()
-        existing = False
-        for user in users: 
-            if user[1] == username: 
-                existing = True
-                break
+        user = getUserByUsername(username)
 
-        if not existing:
+        if not user:
             insertUser(username, password)
             return jsonify({"status": "success"})
         else:
@@ -172,8 +135,12 @@ def register():
     return render_template('register.html', form=form)
 
 
-class InterestForm(FlaskForm):
+class InterestsForm(FlaskForm):
     interests = StringField('interest', [validators.DataRequired()])
+    submit = SubmitField('Register')
+
+class FriendsForm(FlaskForm):
+    friends = StringField('friends', [validators.DataRequired()])
     submit = SubmitField('Register')
 
 
@@ -186,31 +153,51 @@ def interest():
         interests = form.interests.data
 
         # store interests
-        users = retrieveUsers()
-        if 'user_id' in sessions and session['user_id']:
+        if 'user_id' in session and session['user_id']:
             cur_user_id = session['user_id']
-            existing = False
-            for user in users: 
-                if user[0] == cur_user_id: 
-                    existing = True
-                    break
+            cur_user = getUsernameById(cur_user_id)
             
             if cur_user:
                 insertInterests(cur_user_id, interests)
-                return jsonify({"status": "success"})
+                return jsonify({"interests": "{interests1}"}) ## change
             else:
-                return jsonify({"status":"error_invalid_user_id"})
+                return jsonify({"interests": "{interests2}"}) ## change
         else:
-            return jsonify({"status":"error_no_user"})
+            return jsonify({"interests": "{interests3}"})  ## change
     else:
         print("form validation failed")
-        return jsonify({"status": "error_form_validation_failed"}) #ADDED THIS LINE
+        return render_template('interest.html', form=form)  ## change
 
 
 
-# @app.route('/add_friends', methods=['GET', 'POST'])
-# def add_friends():
+@app.route('/add_friends', methods=['GET', 'POST'])
+def add_friends():
+    form = FriendsForm()
 
+    if form.validate_on_submit():
+        print("form validaton passed")
+        friends_text = form.friends.data
+        friends = friends_text.split(',')  # make into an array of usernames
+
+        # store group info
+        if 'user_id' in session and session['user_id']:
+            user_id = session['user_id']
+            username = getUsernameById(user_id)
+            group_ids = retrieveGroupId(username[0])
+
+            if group_ids: # if the user is already in a group
+                group_id = group_ids[0][0]
+            else:  # need to create another group
+                group_id = createNewGroup()
+                friends.append(username[0])
+            addFriends(group_id, friends)            
+                
+            return jsonify({"friends": "{friends}"}) ## change
+        else:
+            return jsonify({"friends": "{friends}"})  ## change
+    else:
+        print("form validation failed")
+        return render_template('interest.html', form=form)  ## change
 
 @app.after_request
 def add_cors_headers(response):

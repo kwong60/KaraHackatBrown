@@ -6,8 +6,7 @@ CREATE TABLE groups (
 );
 
 CREATE TABLE group_members (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    group_id INTEGER,
+    group_id INTEGER NOT NULL,
     username TEXT NOT NULL,
     FOREIGN KEY (group_id) REFERENCES groups(id)
 );
