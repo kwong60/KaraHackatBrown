@@ -7,15 +7,13 @@ import food from "./images/food.png";
 import shopping from "./images/shopping.png";
 import wild from "./images/wildcard.png";
 import earth from "./images/earth.png";
-import axios from "axios"
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
-
 
 export function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-   const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
     try {
@@ -31,12 +29,18 @@ export function Login() {
 
         // Redirect or perform other actions upon successful login
       } else {
-        console.log("Invalid credentials");
+        document.getElementById("message_to_user").style.display = "block";
+        document.getElementById("message_to_user").innerHTML =
+          "Your username or password was incorrect. Please try again!";
       }
     } catch (error) {
       console.error("Error during login:", error.message);
     }
   };
+
+  const onRegister = () => {
+    navigate("/register");
+  }
 
   return (
     <div className="App">
@@ -70,8 +74,20 @@ export function Login() {
             Submit
           </button>
         </div>
+
+        <div>
+          <p
+            className="user_message"
+            id="message_to_user"
+            style={{ display: "none" }}
+          ></p>
+        </div>
+        <div>
+          <button type="button" onClick={onRegister}>
+            Don't have an account yet? Sign up here!
+          </button>
+        </div>
       </div>
     </div>
   );
 }
-
