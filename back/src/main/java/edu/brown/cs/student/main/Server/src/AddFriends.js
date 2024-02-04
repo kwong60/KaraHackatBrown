@@ -32,7 +32,7 @@ export function AddFriends() {
     console.log(friendsString);
     try {
       const response = await axios.post(
-        "http://localhost:3232/addfriends",
+        "http://localhost:3232/add_friends",
         {
           friends: friendsString,
         },

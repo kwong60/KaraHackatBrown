@@ -26,9 +26,9 @@ export function Interests() {
 
   const handleSubmit = async () => {
     // Now you can use the interestList for further processing or redirection
-    console.log(interestList)
+    console.log(interestList);
     const interestsString = interestList.join(",");
-    console.log(interestsString)
+    console.log(interestsString);
     try {
       const response = await axios.post(
         "http://localhost:3232/interests",
@@ -54,6 +54,7 @@ export function Interests() {
       document.getElementById("message_to_user").style.display = "block";
     }
 
+    console.log("dies");
     navigate("/addfriends");
   };
 
