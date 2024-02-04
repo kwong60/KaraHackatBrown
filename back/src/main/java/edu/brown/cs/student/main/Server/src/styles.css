@@ -136,6 +136,39 @@ h2 {
   transform: translate(-50%, -50%);
 }
 
+.login_button {
+  margin: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.login:hover {
+  box-shadow: 0 4px 10px #ffffff;
+  border-radius: 20px;
+  opacity:0.8;
+}
+
+.login:active {
+  box-shadow: 0 4px 10px #ffffff;
+  border-radius: 20px;
+  opacity:0.5;
+}
+
+.register:hover {
+  box-shadow: 0 4px 10px #ffffff;
+  border-radius: 20px;
+  opacity:0.8;
+}
+
+.register:active {
+  box-shadow: 0 4px 10px #ffffff;
+  border-radius: 20px;
+  opacity:0.5;
+}
+
 .vote_button1 {
   margin: auto;
   position: absolute;
@@ -285,4 +318,13 @@ h2 {
 
 .friends-list {
   color:white;
+}
+
+.new_user {
+  margin: auto;
+  position: absolute;
+  top: 57%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }

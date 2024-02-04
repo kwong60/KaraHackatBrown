@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import title from "./images/title.png";
-import axios from "axios"
-import yes from "./images/yes.png";
-import no from "./images/no.png";
-import logo from "./images/logo.png";
+import axios from 'axios';
 
 export function Recommendations() {
   const [newUsername, setNewUsername] = useState("");

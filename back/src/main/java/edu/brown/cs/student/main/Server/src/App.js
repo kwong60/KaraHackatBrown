@@ -8,8 +8,8 @@ import { Interests } from "./Interests";
 import { Recommendations } from "./Recommendations";
 import { PlanMade } from "./PlanMade";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import styles from "./styles.css";
 
+import styles from './styles.css'
 
 function App() {
 
