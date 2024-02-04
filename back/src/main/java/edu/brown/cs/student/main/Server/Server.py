@@ -2,15 +2,22 @@ from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import requests
 
-from flask import Flask, render_template, redirect, url_for, session, flash
-from flask_wtf import FlaskForm
+from flask import Flask, render_template, redirect, url_for, session, flash, after_this_request, make_response
+from flask_wtf import FlaskForm, CSRFProtect
 from wtforms import StringField, PasswordField, SubmitField, validators
 from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user, current_user
 
 import sqlite3
 
 app = Flask(__name__)
-CORS(app)  # Enable Cross-Origin Resource Sharing (CORS) for all routes
+# CORS(app)  # Enable Cross-Origin Resource Sharing (CORS) for all routes
+CORS(app, origins="http://localhost:3000", supports_credentials=True)
+csrf=CSRFProtect(app)
+app.config['WTF_CSRF_ENABLED'] = False
+
+
+
+
 
 # # Initialize static variables
 # parsed_loaded_csv = []
@@ -120,11 +127,15 @@ def dashboard():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    print("method call")
     form = RegistrationForm()
 
     if form.validate_on_submit():
+        print("form validaton passed")
         username = form.username.data
         password = form.password.data
+
+
 
         # user registration logic
         users = retrieveUsers()
@@ -141,8 +152,29 @@ def register():
             return redirect(url_for('login'))
         else:
             flash('Username already exists. Please choose a different one.', 'error')
-
+    else:
+        print("form validation failed")
+        print(form.errors)
+    if request.method == 'OPTIONS':
+        response = make_response()
+        response.headers["Access-Control-Allow-Origin"] = "http://localhost:3000"
+        response.headers["Access-Control-Allow-Methods"] = "POST, OPTIONS"
+        response.headers["Access-Control-Allow-Headers"] = "Content-Type"
+        response.headers["Access-Control-Allow-Credentials"] = "true"
+        return response
+        
     return render_template('register.html', form=form)
+
+@app.after_request
+def add_cors_headers(response):
+    origin = request.headers.get("Origin")
+    
+    response.headers["Access-Control-Allow-Origin"] = origin
+    response.headers["Access-Control-Allow-Methods"] = "*"
+    response.headers["Access-Control-Allow-Headers"] = "Content-Type"
+    response.headers["Access-Control-Allow-Credentials"] = "true"
+    
+    return response
 
 if __name__ == '__main__':
     port = 3232

@@ -10,6 +10,18 @@ import wild from "./images/wildcard.png";
 export function Interests() {
   <link rel="stylesheet" href="mystyle.css"></link>;
 
+//   const [interest, setInterest] = useState("");
+//   const history = useHistory();
+
+//   const handleSubmit = () => {
+//     history.push('/recommendations?interests=${interest}')
+//   }
+
+  
+  
+
+
+
   return (
     <div className="App">
       <h1>

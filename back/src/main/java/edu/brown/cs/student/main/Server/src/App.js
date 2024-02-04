@@ -11,13 +11,14 @@ import { AddFriends } from "./AddFriends"
 import { Register } from "./Register"
 import { Login } from "./Login"
 import { Interests } from "./Interests"
+import { Recommendations } from "./Recommendations";
 
 function App() {
   <link rel="stylesheet" href="mystyle.css"></link>;
 
 
   return (
-    <Login />
+    <Register />
   );
 }
 
