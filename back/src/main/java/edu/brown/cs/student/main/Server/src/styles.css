@@ -1,6 +1,9 @@
 body {
+  background-color: #0F3861;
   background-image: url(\images/nightsky.jpg);
-  background-size:cover;
+  background-size: cover;
+  background-attachment: fixed;
+  overflow-y: scroll;
 }
 
 h1 {
@@ -76,6 +79,43 @@ h2 {
   transform: translate(-50%, -50%);
 }
 
+.vote_button1 {
+  margin: auto;
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.vote_button1 {
+  margin: auto;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.vote_button2 {
+  margin: auto;
+  position: absolute;
+  top: 150%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.vote_button3 {
+  margin: auto;
+  position: absolute;
+  top: 200%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+
 .username {
   margin: auto;
   position: absolute;
@@ -139,6 +179,47 @@ h2 {
   transform: translate(-50%, -50%);
 }
 
+.sug1yes:hover{
+  box-shadow: 0 4px 10px #ffffff;
+  border-radius: 20px;
+  opacity:0.8;
+}
+
+.sug1no:hover{
+  box-shadow: 0 4px 10px #ffffff;
+  border-radius: 20px;
+  opacity:0.8;
+}
+
+.sug2yes:hover{
+  box-shadow: 0 4px 10px #ffffff;
+  border-radius: 20px;
+  opacity:0.8;
+}
+
+.sug2no:hover{
+  box-shadow: 0 4px 10px #ffffff;
+  border-radius: 20px;
+  opacity:0.8;
+}
+
+.sug3yes:hover{
+  box-shadow: 0 4px 10px #ffffff;
+  border-radius: 20px;
+  opacity:0.8;
+}
+
+.sug3no:hover{
+  box-shadow: 0 4px 10px #ffffff;
+  border-radius: 20px;
+  opacity:0.8;
+}
+
+.fixed_element{
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}
 .bg_img {
   size: 300%;
   top: 100%;
