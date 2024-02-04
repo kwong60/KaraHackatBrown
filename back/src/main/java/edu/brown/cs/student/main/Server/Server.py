@@ -114,10 +114,11 @@ def login():
             if cur_user[2] == password:
                 session['logged_in'] = True
                 session['user_id'] = cur_user[0]
-                flash('Login successful!', 'success')
-                return redirect(url_for('home'))
+                return jsonify({"status": "success"})
         else:
-            flash('Invalid credentials. Please try again.', 'error')
+            return jsonify({"status": "error_incorrect_login"})
+    else:
+        print("form validation failed")
 
     return render_template('login.html', form=form)
 

@@ -8,11 +8,14 @@ import shopping from "./images/shopping.png";
 import wild from "./images/wildcard.png";
 import earth from "./images/earth.png";
 import axios from "axios"
+import { useNavigate } from "react-router-dom";
+
 
 
 export function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+   const navigate = useNavigate();
 
   const handleLogin = async () => {
     try {
@@ -22,8 +25,10 @@ export function Login() {
       });
 
       // Assuming your Flask server responds with a success message
-      if (response.data.success) {
+      if (response.data.status == "success") {
         console.log("Login successful");
+        navigate("/interests");
+
         // Redirect or perform other actions upon successful login
       } else {
         console.log("Invalid credentials");
@@ -70,32 +75,3 @@ export function Login() {
   );
 }
 
-
-// export function Login() {
-//     <link rel="stylesheet" href="mystyle.css"></link>;
-
-
-// return (
-
-// <div className="App">
-//   <div className="body">
-//     <h1>
-//       <img src={title} />
-//     </h1>
-//     <h2>Please log in.</h2>
-//     <div class="username">
-//       <p style={{ color: "white" }}>
-//         Username: <input type="text" />
-//       </p>
-//     </div>
-//     <div class="password">
-//       <p style={{ color: "white" }}>
-//         Password: <input type="text" />
-//       </p>
-//     </div>
-//     <div class="submit_login">
-//       <button type="submit">Submit</button>
-//     </div>
-//   </div>
-// </div>)
-// };
