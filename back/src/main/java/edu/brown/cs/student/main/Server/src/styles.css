@@ -36,6 +36,11 @@ h2 {
   opacity:0.8;
 }
 
+.button div.selected button {
+  opacity: 0.5; /* Adjust the opacity value as needed */
+}
+
+
 .entertain:hover {
   box-shadow: 0 4px 10px #ffffff;
   border-radius: 20px;
