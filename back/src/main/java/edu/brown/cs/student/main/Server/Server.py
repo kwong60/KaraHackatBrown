@@ -26,14 +26,14 @@ def insertUser(username, password):
     # maybe try & err
     # need hash to passward for security
     con = sqlite3.connect("database.db")
-	cur = con.cursor()
+    cur = con.cursor()
     cur.execute("INSERT INTO users (username,pwd) VALUES (?,?)", (username, password))
     con.commit()
     con.close()
 
 def insertInterests(user_id, interests):
     con = sqlite3.connect("database.db")
-	cur = con.cursor()
+    cur = con.cursor()
     cur.execute("UPDATE users SET interests=? WHERE user_id=?"), (interests, user_id)
     con.commit()
     con.close()
@@ -177,9 +177,9 @@ class InterestForm(FlaskForm):
     submit = SubmitField('Register')
 
 
-# @app.route('/interest', methods=['GET', 'POST'])
-# def interest():
-#     form = InterestForm()
+@app.route('/interest', methods=['GET', 'POST'])
+def interest():
+    form = InterestForm()
 
     if form.validate_on_submit():
         print("form validaton passed")
@@ -204,11 +204,12 @@ class InterestForm(FlaskForm):
             return jsonify({"status":"error_no_user"})
     else:
         print("form validation failed")
+        return jsonify({"status": "error_form_validation_failed"}) #ADDED THIS LINE
 
 
 
-@app.route('/add_friends', methods=['GET', 'POST'])
-def add_friends():
+# @app.route('/add_friends', methods=['GET', 'POST'])
+# def add_friends():
 
 
 @app.after_request
