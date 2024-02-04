@@ -39,10 +39,27 @@ h2 {
   opacity:0.8;
 }
 
+.active:active {
+  box-shadow: 0 4px 10px #ffffff;
+  border-radius: 20px;
+  opacity:0.5;
+}
+
+.active:focus {
+  box-shadow: 0 4px 10px #ffffff;
+  border-radius: 20px;
+  opacity:0.8;
+}
+
 .button div.selected button {
   opacity: 0.5; /* Adjust the opacity value as needed */
 }
 
+.entertain:active {
+  box-shadow: 0 4px 10px #ffffff;
+  border-radius: 20px;
+  opacity:0.5;
+}
 
 .entertain:hover {
   box-shadow: 0 4px 10px #ffffff;
@@ -51,13 +68,42 @@ h2 {
 
 }
 
+.entertainment:focus {
+  box-shadow: 0 4px 10px #ffffff;
+  border-radius: 20px;
+  opacity:0.8;
+}
+
+.food:active {
+  box-shadow: 0 4px 10px #ffffff;
+  border-radius: 20px;
+  opacity:0.5;
+}
 .food:hover {
   box-shadow: 0 4px 10px #ffffff;
   border-radius: 20px;
   opacity:0.8;
 }
 
+.food:focus {
+  box-shadow: 0 4px 10px #ffffff;
+  border-radius: 20px;
+  opacity:0.8;
+}
+
+.shop:active {
+  box-shadow: 0 4px 10px #ffffff;
+  border-radius: 20px;
+  opacity:0.5;
+}
+
 .shop:hover {
+  box-shadow: 0 4px 10px #ffffff;
+  border-radius: 20px;
+  opacity:0.8;
+}
+
+.shop:focus {
   box-shadow: 0 4px 10px #ffffff;
   border-radius: 20px;
   opacity:0.8;
@@ -69,6 +115,17 @@ h2 {
   opacity:0.8;
 }
 
+.wildcard:focus {
+  box-shadow: 0 4px 10px #ffffff;
+  border-radius: 20px;
+  opacity:0.8;
+}
+
+.wildcard:active {
+  box-shadow: 0 4px 10px #ffffff;
+  border-radius: 20px;
+  opacity:0.5;
+}
 
 .button {
   margin: auto;
