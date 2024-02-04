@@ -27,7 +27,7 @@ def retrieveGroupId(username):
 def getUserByUsername(username):
     con = sqlite3.connect("database.db")
     cur = con.cursor()
-    cur.execute("SELECT user_id, pwd FROM users WHERE username=?", username)
+    cur.execute("SELECT user_id, pwd FROM users WHERE username=?", (username,))
     users = cur.fetchall()
     con.close()
     return users

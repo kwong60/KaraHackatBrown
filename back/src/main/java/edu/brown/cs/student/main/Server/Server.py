@@ -39,8 +39,11 @@ def check_weather():
     response = connect(request_url)
     body = response.json()
     current = body["current"]
-    return current
-    #return str(current["is_day"])    
+    # return current
+    condition = current["condition"]
+    code = condition["code"]
+    text = condition["text"]
+    return jsonify({"status": "success", "code": str(code), "text": str(text)})
     # return jsonify({"message": "CSV loaded successfully"})
     
 
@@ -113,6 +116,7 @@ def register():
         password = form.password.data
 
         # user registration logic
+        print(username)
         user = getUserByUsername(username)
 
         if not user:
@@ -146,7 +150,7 @@ class FriendsForm(FlaskForm):
 
 @app.route('/interest', methods=['GET', 'POST'])
 def interest():
-    form = InterestForm()
+    form = InterestsForm()
 
     if form.validate_on_submit():
         print("form validaton passed")

@@ -6,7 +6,10 @@ import { Home } from "./Home";
 import { Login } from "./Login";
 import { Interests } from "./Interests";
 import { Recommendations } from "./Recommendations";
+import { PlanMade } from "./PlanMade";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import styles from "./styles.css";
+
 
 function App() {
 
@@ -20,6 +23,7 @@ function App() {
         <Route path="/addfriends" element={<AddFriends />} />
         <Route path="/interests" element={<Interests />} />
         <Route path="/recommendations" element={<Recommendations />} />
+        <Route path="/planmade" element={<PlanMade />} />
       </Routes>
     </BrowserRouter>
   );
