@@ -16,7 +16,6 @@ import { Recommendations } from "./Recommendations";
 function App() {
   <link rel="stylesheet" href="mystyle.css"></link>;
 
-
   return (
     <Register />
   );

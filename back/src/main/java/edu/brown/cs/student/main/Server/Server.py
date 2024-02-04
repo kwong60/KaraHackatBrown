@@ -24,24 +24,33 @@ app.config['WTF_CSRF_ENABLED'] = False
 # parsed_loaded_json = {}
 # state_code = {}
 
-def insertUser(username, password):
-    # maybe try & err
+def getSQLCursor(database):
     con = sqlite3.connect("database.db")
     cur = con.cursor()
+    return cur
+
+def insertUser(username, password):
+    # maybe try & err
+    cur = getSQLCursor
     cur.execute("INSERT INTO users (username,pwd) VALUES (?,?)", (username, password))
     con.commit()
     con.close()
 
+def insertInterests():
+
+
 def retrieveUsers():
 	con = sqlite3.connect("database.db")
 	cur = con.cursor()
-	cur.execute("SELECT username, pwd FROM users")
+	cur.execute("SELECT user_id, username, pwd FROM users")
 	users = cur.fetchall()
 	con.close()
 	return users
 
+
 @app.route('/')
 def home():
+
     return render_template('index.html')
 
 @app.route('/static/<path:path>')
@@ -97,13 +106,14 @@ def login():
         # user authentication logic
         cur_user = None
         for user in users: 
-            if user[0] == username: 
+            if user[1] == username: 
                 cur_user = user
                 break
 
         if cur_user:
-            if cur_user[1] == password:
+            if cur_user[2] == password:
                 session['logged_in'] = True
+                session['user_id'] = cur_user[0]
                 flash('Login successful!', 'success')
                 return redirect(url_for('home'))
         else:
@@ -114,6 +124,7 @@ def login():
 @app.route('/logout')
 def logout():
     session.pop('logged_in', None)
+    session.pop('user_id', None) 
     return redirect(url_for('home'))
 
 @app.route('/dashboard')
@@ -135,12 +146,11 @@ def register():
         password = form.password.data
 
 
-
         # user registration logic
         users = retrieveUsers()
         existing = False
         for user in users: 
-            if user[0] == username: 
+            if user[1] == username: 
                 existing = True
                 break
 
@@ -166,6 +176,58 @@ def register():
         return response
     
     return render_template('register.html', form=form)
+
+
+class InterestForm(FlaskForm):
+    active = BooleanField('active', [validators.DataRequired()])
+    entertain = BooleanField('entertain', [validators.DataRequired()])
+    food = BooleanField('food', [validators.DataRequired()])
+    shop = BooleanField('shop', [validators.DataRequired()])
+    wildcard = BooleanField('wildcard', [validators.DataRequired()])
+    submit = SubmitField('Register')
+
+
+@app.route('/interest', methods=['GET', 'POST'])
+def interest():
+    form = InterestForm()
+
+    if form.validate_on_submit():
+        print("form validaton passed")
+        active = form.active.data
+        entertain = form.entertain.data
+        food = form.food.data
+        shop = form.shop.data
+        wildcard = form.wildcard.data
+
+        # store interests
+        users = retrieveUsers()
+        if 'user_id' in sessions and session['user_id']:
+            cur_user_id = session['user_id']
+            cur_user = None
+            for user in users: 
+                if user[0] == cur_user_id: 
+                    cur_user = user
+                    break
+            
+            if cur_user:
+
+
+        if not existing:
+            insertUser(username, password)
+            # users[username] = password
+            # flash('Registration successful! You can now login.', 'success')
+            return jsonify({"status": "success"})
+            return redirect(url_for('login'))
+        else:
+            # flash('Username already exists. Please choose a different one.', 'error')
+            return jsonify({"status":"error_username_exists"})
+    else:
+        print("form validation failed")
+
+
+@app.route('/add_friends', methods=['GET', 'POST'])
+def add_friends():
+
 
 @app.after_request
 def add_cors_headers(response):

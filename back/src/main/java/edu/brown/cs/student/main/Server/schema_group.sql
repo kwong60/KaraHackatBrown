@@ -1,0 +1,13 @@
+DROP TABLE IF EXISTS groups;
+DROP TABLE IF EXISTS group_members;
+
+CREATE TABLE groups (
+    id INTEGER PRIMARY KEY AUTOINCREMENT
+);
+
+CREATE TABLE group_members (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    group_id INTEGER,
+    username TEXT NOT NULL,
+    FOREIGN KEY (group_id) REFERENCES groups(id)
+);
