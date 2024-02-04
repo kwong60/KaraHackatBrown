@@ -12,5 +12,7 @@ activities_dict = {
 		"DEI Business": ["Women-owned", "Small Business"],
 		"Description": "Serving Italian comfort food since 1924. Awarded Best Locally Owned Family Friendly Restaurant in 2019."
 	}
+    
+	
 
 }
