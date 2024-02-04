@@ -75,7 +75,7 @@ export function Login() {
             style={{ display: "none" }}
           ></p>
         </div>
-        <div>
+        <div class="new_user">
           <button type="button" onClick={onRegister}>
             Don't have an account yet? Sign up here!
           </button>

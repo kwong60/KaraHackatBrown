@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import title from "./images/title.png";
-import activities_dict from "../activities_dict"
+import axios from 'axios';
+// import activities_dict from "../activities_dict"
 
 export function Recommendations() {
   const [newUsername, setNewUsername] = useState("");
