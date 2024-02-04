@@ -20,11 +20,11 @@ export function Recommendations() {
 
   console.log(activities_dictionary)
 
-      if (response.status == "success") {
-        const code = response.data.code;
-        const text = response.data.text;
-        console.log(code)
-        console.log(text)
+      // if (response.status == "success") {
+      //   const code = response.data.code;
+      //   const text = response.data.text;
+      //   console.log(code)
+      //   console.log(text)
 
         // try {
         //   const response2 = await axios.post("http://localhost:3232/get_interests", 
@@ -39,7 +39,7 @@ export function Recommendations() {
         //   console.log("you failed to get interests") 
         //   console.log(error)
         // }
-      }
+      // }
 
   // const fetchData = async () => {
   //   try {
