@@ -26,7 +26,7 @@ export function Register() {
       );
 
       // Assuming your Flask server responds with a success message
-      if (response.data.success) {
+      if (response.data.status == "success") {
         console.log("Registration successful");
         // Redirect or perform other actions upon successful registration
       } else {

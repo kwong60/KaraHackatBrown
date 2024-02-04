@@ -127,7 +127,6 @@ def dashboard():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    print("method call")
     form = RegistrationForm()
 
     if form.validate_on_submit():
@@ -148,13 +147,16 @@ def register():
         if not existing:
             insertUser(username, password)
             # users[username] = password
-            flash('Registration successful! You can now login.', 'success')
+            # flash('Registration successful! You can now login.', 'success')
+            return jsonify({"status": "success"})
             return redirect(url_for('login'))
         else:
-            flash('Username already exists. Please choose a different one.', 'error')
+            # flash('Username already exists. Please choose a different one.', 'error')
+            return jsonify({"status":"error_username_exists"})
     else:
         print("form validation failed")
-        print(form.errors)
+        
+    
     if request.method == 'OPTIONS':
         response = make_response()
         response.headers["Access-Control-Allow-Origin"] = "http://localhost:3000"
@@ -162,7 +164,7 @@ def register():
         response.headers["Access-Control-Allow-Headers"] = "Content-Type"
         response.headers["Access-Control-Allow-Credentials"] = "true"
         return response
-        
+    
     return render_template('register.html', form=form)
 
 @app.after_request
