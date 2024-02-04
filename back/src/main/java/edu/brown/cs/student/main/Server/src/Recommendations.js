@@ -115,6 +115,27 @@ export function Recommendations() {
           plant-based food hall."
         </p>
       </div>
+
+      <div className="recommendation">
+        <p>
+          <b>Name:</b> Scentique
+        </p>
+        <p>
+          <b>Category:</b> Entertainment
+        </p>
+        <p>
+          <b>Location:</b> 136 Taunton Ave.
+        </p>
+        <p>
+          <b>DEI:</b> "Women-owned", "Small Business"
+        </p>
+        <p>
+          <b>Description:</b>
+          Rhode Island's first Candle Bar & Fragrance Studio! Make a custom
+          candle start to finish!
+        </p>
+      </div>
+
       <div></div>
       {/*suggestion 1*/}
       {/* <div class="vote_button1">
@@ -146,6 +167,24 @@ export function Recommendations() {
           <b>Description:</b>
           "Serving Italian comfort food since 1924. Awarded Best Locally Owned
           Family Friendly Restaurant in 2019."
+        </p>
+      </div>
+      <div className="recommendation">
+        <p>
+          <b>Name:</b> Pick up three pieces of trash
+        </p>
+        <p>
+          <b>Category:</b> Wild Card
+        </p>
+        <p>
+          <b>Location:</b> Anywhere!
+        </p>
+        <p>
+          <b>DEI:</b> None
+        </p>
+        <p>
+          <b>Description:</b>
+          Contribute to your community in a simple and meaningful way.
         </p>
       </div>
       {/*sugestion 2*/}

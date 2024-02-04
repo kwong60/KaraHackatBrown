@@ -8,8 +8,14 @@ import { Interests } from "./Interests";
 import { Recommendations } from "./Recommendations";
 import { PlanMade } from "./PlanMade";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+<<<<<<< HEAD
 
 import styles from './styles.css'
+=======
+import styles from "./styles.css";
+
+
+>>>>>>> 617d3be4e2c372f6e204c29727c1130ac4de8b59
 
 function App() {
 
