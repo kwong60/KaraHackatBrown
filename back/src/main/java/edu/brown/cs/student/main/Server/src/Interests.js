@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import styles from "./styles.css";
 import title from "./images/title.png";
 import active from "./images/active.png";
 import enter from "./images/entertainment.png";

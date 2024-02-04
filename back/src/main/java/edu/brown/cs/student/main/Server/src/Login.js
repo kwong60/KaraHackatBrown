@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import styles from "./styles.css";
 import title from "./images/title.png";
-import active from "./images/active.png";
-import enter from "./images/entertainment.png";
-import food from "./images/food.png";
-import shopping from "./images/shopping.png";
-import wild from "./images/wildcard.png";
-import earth from "./images/earth.png";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 

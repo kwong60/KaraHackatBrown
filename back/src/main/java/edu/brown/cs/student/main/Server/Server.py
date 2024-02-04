@@ -21,7 +21,6 @@ app.config['WTF_CSRF_ENABLED'] = False
 # parsed_loaded_json = {}
 # state_code = {}
 
-
 @app.route('/')
 def home():
 
@@ -145,9 +144,9 @@ class FriendsForm(FlaskForm):
     submit = SubmitField('Register')
 
 
-# @app.route('/interest', methods=['GET', 'POST'])
-# def interest():
-#     form = InterestForm()
+@app.route('/interest', methods=['GET', 'POST'])
+def interest():
+    form = InterestForm()
 
     if form.validate_on_submit():
         print("form validaton passed")
@@ -199,7 +198,6 @@ def add_friends():
     else:
         print("form validation failed")
         return render_template('interest.html', form=form)  ## change
-
 
 @app.after_request
 def add_cors_headers(response):

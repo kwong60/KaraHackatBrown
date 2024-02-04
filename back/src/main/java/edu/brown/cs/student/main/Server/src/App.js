@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import { AddFriends } from "./AddFriends";
 import { Register } from "./Register";
@@ -7,7 +7,6 @@ import { Login } from "./Login";
 import { Interests } from "./Interests";
 import { Recommendations } from "./Recommendations";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import styles from "./styles.css";
 
 function App() {
 

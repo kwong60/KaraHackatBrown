@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import axios from "axios";
-import styles from "./styles.css";
 import title from "./images/title.png";
 import {Link} from "react-router-dom"
 
