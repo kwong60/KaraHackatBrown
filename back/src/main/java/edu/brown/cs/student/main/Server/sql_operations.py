@@ -1,4 +1,13 @@
 import sqlite3
+from enum import Enum
+
+class Activities(Enum):
+    Active = 1
+    Entertain = 2
+    Food = 3
+    Shop = 4
+    Wildcard = 5
+
 
 def insertUser(username, password):
     # maybe try & err
@@ -20,9 +29,9 @@ def retrieveGroupId(username):
     con = sqlite3.connect("database_group.db")
     cur = con.cursor()
     cur.execute("SELECT group_id FROM group_members WHERE username=?", username)
-    members = cur.fetchall()
+    ids = cur.fetchall()
     con.close()
-    return members
+    return ids
 
 def getUserByUsername(username):
     con = sqlite3.connect("database.db")
@@ -59,3 +68,33 @@ def createNewGroup():
     con.commit()
     con.close()
     return cur.lastrowid # returns the newly-created group id
+
+def get_group_members(id):
+    con = sqlite3.connect("database_group.db")
+    cur = con.cursor()
+    cur.execute("SELECT username FROM group_members WHERE group_id=?", (id,))
+    usernames = cur.fetchall()
+    con.close()
+    return usernames
+
+def get_all_interests(members):
+    con = sqlite3.connect("database.db")
+    cur = con.cursor()
+    interests_lists = []
+    for member in members:
+        cur.execute("SELECT interests FROM users WHERE username=?", (member,))
+        interests_lists.append(cur.fetchall().split(','))
+    print(interests)
+    common_interests = [True, True, True, True, True]
+    for interests_list in interests_lists:
+        for activity in Activities:
+            if activity not in interests_list:
+                common_interests[activity] = False
+
+    group_interests = []
+    for i in range(5):
+        if common_interests[i]:
+            group_interests.append(Activities(i).name)
+    con.close()
+    print(group_interests)
+    return group_interests

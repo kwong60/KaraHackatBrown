@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import title from "./images/title.png";
 import axios from 'axios';
+import yes from './images/yes.png';
+import no from './images/no.png';
+import logo from './images/logo.png';
 
 export function Recommendations() {
   const [newUsername, setNewUsername] = useState("");
@@ -26,14 +29,26 @@ export function Recommendations() {
       );
 
       if (response.status == "success") {
-        
+        const code = response.data.code;
+        const text = response.data.text;
+        console.log(code)
+        console.log(text)
+
+        // try {
+        //   const response2 = await axios.post("http://localhost:3232/get_interests", 
+        //   {
+        //     withCredentials: true,
+        //   });
+          
+        //   if (response2.status == "success") {
+        //     console.log(response2.data.interests)
+        //   }
+        // } catch (error) {
+        //   console.log("you failed to get interests") 
+        //   console.log(error)
+        // }
       }
 
-      
-      const code = response.code;
-      const text = response.text;
-      console.log(code)
-      console.log(text)
 
     //   // Assuming your Flask server responds with a success message
     //   if (response.data.status == "success") {

@@ -7,7 +7,7 @@ from flask_wtf import FlaskForm, CSRFProtect
 from wtforms import StringField, PasswordField, SubmitField, validators
 from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user, current_user
 
-from sql_operations import insertUser, insertInterests, retrieveGroupId, getUserByUsername, getUsernameById, addFriends, createNewGroup
+from sql_operations import insertUser, insertInterests, retrieveGroupId, getUserByUsername, getUsernameById, addFriends, createNewGroup, get_group_members, get_all_interests
 
 app = Flask(__name__)
 # CORS(app)  # Enable Cross-Origin Resource Sharing (CORS) for all routes
@@ -30,7 +30,7 @@ def home():
 def send_static(path):
     return send_from_directory('static', path)
 
-@app.route('/checkweather', methods=['GET'])
+@app.route('/checkweather', methods=['GET', 'POST'])
 def check_weather():
     # Implement the logic for loading the CSV file
     # You can use request.args to get query parameters if needed
@@ -45,6 +45,27 @@ def check_weather():
     text = condition["text"]
     return jsonify({"status": "success", "code": str(code), "text": str(text)})
     # return jsonify({"message": "CSV loaded successfully"})
+
+@app.route('/get_interests', methods=['GET', 'POST'])
+def get_interests():
+    if 'user_id' in session and session['user_id']:
+            user_id = session['user_id']
+            username = getUsernameById(user_id)
+
+            if username:
+                group_id = retrieveGroupId(username[0])
+                if group_id:
+                    members = get_group_members(group_id[0])
+                    interests = get_all_interests(members)
+                    return jsonify({"status": "success", "interests": interests})
+                else:
+                    return jsonify({"status": "error_group_not_found"})
+
+            else:
+                return jsonify({"status": "error_invalid_user"})
+    else:
+        print("not recognize user")
+        return jsonify({"status": "failed"})
     
 
 @staticmethod
@@ -170,7 +191,7 @@ def interest():
             return jsonify({"interests": "{interests3}"})  ## change
     else:
         print("form validation failed")
-        return render_template('interest.html', form=form)  ## change
+        return jsonify({"status": "failed"})  ## change
 
 
 
@@ -201,7 +222,7 @@ def add_friends():
             return jsonify({"friends": "{friends}"})  ## change
     else:
         print("form validation failed")
-        return render_template('interest.html', form=form)  ## change
+        return jsonify({"status": "failed"})  ## change
 
 @app.after_request
 def add_cors_headers(response):

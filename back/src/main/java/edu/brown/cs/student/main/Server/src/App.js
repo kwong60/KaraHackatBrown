@@ -22,7 +22,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/addfriends" element={<AddFriends />} />
         <Route path="/interests" element={<Interests />} />
-        <Route path="/recommendations" element={<Recommendations />} />
+        <Route path="/checkweather" element={<Recommendations />} />
         <Route path="/planmade" element={<PlanMade />} />
       </Routes>
     </BrowserRouter>
