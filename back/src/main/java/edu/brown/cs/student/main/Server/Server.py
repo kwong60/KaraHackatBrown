@@ -6,6 +6,7 @@ from flask import Flask, render_template, redirect, url_for, session, flash, aft
 from flask_wtf import FlaskForm, CSRFProtect
 from wtforms import StringField, PasswordField, SubmitField, validators
 from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user, current_user
+from activities_dict import json_data
 
 from sql_operations import insertUser, insertInterests, retrieveGroupId, getUserByUsername, getUsernameById, addFriends, createNewGroup, get_group_members, get_all_interests
 
@@ -29,6 +30,10 @@ def home():
 @app.route('/static/<path:path>')
 def send_static(path):
     return send_from_directory('static', path)
+
+@app.route('/get_activities_dict')
+def get_activities_dict():
+    return jsonify(activities_dict=json_data)
 
 @app.route('/checkweather', methods=['GET', 'POST'])
 def check_weather():

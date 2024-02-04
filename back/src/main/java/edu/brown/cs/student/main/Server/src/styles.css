@@ -12,6 +12,19 @@ h1 {
   font-family:'Courier New', Courier, monospace;
 }
 
+.recommendation {
+  background-color: white;
+  color:navy;
+  font-size:large;
+  font-family:'Courier New', Courier, monospace;
+  opacity:0.8;
+  padding:20px;
+  width:400px;
+  margin:auto;
+
+
+}
+
 h2 {
   color: rgb(255, 255, 255);
   text-align: center;
